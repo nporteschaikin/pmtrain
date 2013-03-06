@@ -1,5 +1,4 @@
 <code>
-
 	$user->update ( array ( 'firstname' => 'Ethan' ) );
 	$user->chicken = 'egg';
 	echo $user->chicken;
