@@ -1,7 +1,1 @@
-```php
-$user->update ( array ( 'firstname' => 'Ethan' ) );
-$user->chicken = 'egg';
-echo $user->chicken;
-$user->save ();
-echo $user->firstname . ' ' . $user->lastname;
-```
+This is my take on a PHP and MySQL-based framework.  It is nowhere near complete. 
