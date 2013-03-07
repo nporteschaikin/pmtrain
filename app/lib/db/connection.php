@@ -52,8 +52,24 @@ class Connection {
 	public function query ( $sql ) { 
 		
 		$connection = $this->conn;
-		$test = $connection-> query ( $sql ) 
-			or die ( $connection->error );
+		$query = $connection-> query ( $sql );
+		return $query;
+		
+	}
+	
+	public function query_and_fetch ( $query, $one = false ) {
+		
+		$query = $this->query ( $query );
+		$fetch = array ();
+		if ( $one ) {
+			$fetch = $query->fetch_array ( MYSQLI_ASSOC );
+		} else {
+			while ( $row = $query->fetch_array ( MYSQLI_ASSOC ) ) {
+				array_push ( $fetch, $row );
+			}
+		}
+		
+		return $fetch;
 		
 	}
 	

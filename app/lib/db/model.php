@@ -8,6 +8,7 @@ class Model {
 	private $new_record = true;
 	
 	static $accessible = array ();
+	static $protected = array ();
 	
 	public static function class_name () {
 		
@@ -24,7 +25,13 @@ class Model {
 	public function __construct ( array $attrs = array (), $new_record = true ) {
 	
 		$this->new_record = $new_record;
-		$this-> set_attributes ( $attrs );
+		$this->set_attributes ( $attrs );
+		
+	}
+	
+	public function __set ( $attr, $value ) {
+		
+		$this->assign_attribute ( $attr, $value );
 		
 	}
 	
@@ -32,10 +39,36 @@ class Model {
 		
 		foreach ( $attrs as $attr => $value ) {
 			
-			$this->$attr = $value;
-			$this->attributes[$attr] = $value;
+			$this->assign_attribute ( $attr, $value );
 			
-		}
+		} 
+		
+	}
+	
+	private function assign_attribute ( $attr, $value ) {
+		
+		$this->$attr = $value;
+		$this->attributes[$attr] = $value;
+		
+	}
+	
+	public static function find () {
+		
+		$arguments = func_get_args ();
+		$num_arguments = func_num_args ();
+		
+		if ( $num_arguments == 1 ) 
+			// select by primary key
+		else
+			// second parameter is options
+			
+		
+		// $class = static::class_name ();
+		// $table = static::table ();
+		// 
+		// $attrs = $table->find ( $primary_key_value );
+		// $model = new $class ( $attrs, false );
+		// return $model;
 		
 	}
 	
@@ -47,16 +80,16 @@ class Model {
 		
 	}
 	
-	public function save ( array $attrs = array () ) {
+	public function save () {
 		
-		$table = static::table ();
-		$table-> save ( $this->attributes, $this->new_record );
+		$table = static::table();
+		$table->save ( $this->attributes, $this->new_record );
 		
 	}
 	
 	public function update ( array $attrs = array () ) {
 		
-		$this-> set_attributes ( $attrs );
+		$this->set_attributes ( $attrs );
 		
 	}
 	

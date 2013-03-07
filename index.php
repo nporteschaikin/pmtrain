@@ -2,14 +2,10 @@
 
 require ( 'app/load.php' );
 
-class User extends Db\Model {
-	
-	
-}
 
-$user = User::create ( array ( 'firstname' => 'Noah', 'lastname' => 'Portes Chaikin' ) );
-$user->update ( array ( 'firstname' => 'Ethan' ) );
-$user->chicken = 'egg';
-echo $user->chicken;
-$user->save ();
-echo $user->firstname . ' ' . $user->lastname;
+// $user = User::create(array('firstname' => 'Noah', 'lastname' => 'Portes Chaikin'));
+// $user->address = "109 North 5th St, #3, Brooklyn, NY 11211";
+// $user->save();
+
+$user = User::find(1);
+echo $user->firstname;

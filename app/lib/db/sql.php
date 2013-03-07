@@ -36,6 +36,13 @@ class Sql {
 		
 	}
 	
+	public function offset ( $offset ) {
+		
+		$this->offset = $offset;
+		return $this;
+		
+	}
+	
 	public function insert ( $attrs ) {
 		
 		$this->operation = 'insert';
@@ -59,6 +66,20 @@ class Sql {
 		
 	}
 	
+	public function get_columns () {
+		
+		$this->operation = 'columns';
+		return $this;
+		
+	}
+	
+	public function get_primary_key () {
+		
+		$this->operation = 'primary_key';
+		return $this;
+		
+	}
+	
 	public function construct () {
 		if ( $this->operation ) {
 			$function = 'construct_' . $this->operation;
@@ -68,18 +89,17 @@ class Sql {
 	}
 	
 	public function str () {
-		
 		return $this-> construct (); 
 		
 	}
 	
-	public function construct_select () {
+	private function construct_select () {
 		
-		$sql = 'SELECT';
+		// select
 		
 	}
 	
-	public function construct_insert () {
+	private function construct_insert () {
 		
 		if ( $this->data ) {
 			
@@ -93,6 +113,20 @@ class Sql {
 			return $sql;
 			
 		}
+		
+	}
+	
+	private function construct_columns () {
+		
+		$sql = 'SHOW COLUMNS FROM ' . $this->table_name;
+		return $sql;
+		
+	}
+	
+	private function construct_primary_key () {
+		
+		$sql = 'SHOW INDEX FROM ' . $this->table_name . ' WHERE key_name = "PRIMARY"';
+		return $sql;
 		
 	}
 	
